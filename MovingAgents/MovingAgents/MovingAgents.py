@@ -7,29 +7,19 @@ from Player import Player
 pygame.init()
 
 #setup
-yPos = 30
-xPos = 30
-initVel = 0
+yPos = Constants.DISPLAY_HEIGHT / 2
+xPos = Constants.DISPLAY_WIDTH / 2
 clock = pygame.time.Clock();
 screen = pygame.display.set_mode((Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT))
-player = Player(pygame.Vector2(xPos, yPos), pygame.Vector2(initVel, initVel), (Constants.PLAYER_SIZE))
+player = Player(pygame.Vector2(xPos, yPos), (Constants.PLAYER_SIZE), Constants.PLAYER_SPD)
 
 #main gameplay loop
 while True:
 
+	enemies = []
+
+	#draw the player
 	player.draw(screen)
 
-	# event handler
-	for event in pygame.event.get():
-		if event.type == QUIT:
-			pygame.quit()
-			quit()
-
-	#make screen cornflower blue
-	screen.fill(Constants.BACKGROUND_COLOR)
-
-	#flip display buffer
-	pygame.display.flip()
-
-	#constrain to set fps
-	clock.tick(Constants.FRAME_RATE)
+	#update the player
+	player.update(enemies)
