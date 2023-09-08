@@ -20,9 +20,6 @@ class Player:
 		return ("Size: " +  str(self.size) + ", " + "Pos: " + str(self.pos) + ", " + "Vel: " + str(self.vel) + ", " + "Center: " + str(self.center))
 
 	def draw(self, screen):
-		
-		#make screen cornflower blue
-		screen.fill(Constants.BACKGROUND_COLOR)
 
 		#draw the rectangle
 		pygame.draw.rect(screen, (Constants.PLAYER_COLOR), pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))

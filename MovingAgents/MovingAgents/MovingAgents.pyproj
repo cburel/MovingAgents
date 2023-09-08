@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.py" />
+    <Compile Include="Enemy.py" />
     <Compile Include="MovingAgents.py" />
     <Compile Include="Player.py" />
   </ItemGroup>

@@ -24,6 +24,9 @@ while True:
 			pygame.quit()
 			quit()
 
+	#make screen cornflower blue
+	screen.fill(Constants.BACKGROUND_COLOR)
+
 	#draw the player
 	player.draw(screen)
 
