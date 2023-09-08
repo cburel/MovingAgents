@@ -25,7 +25,7 @@ class Player:
 		screen.fill(Constants.BACKGROUND_COLOR)
 
 		#draw the rectangle
-		pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
+		pygame.draw.rect(screen, (Constants.PLAYER_COLOR), pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
 
 		# draw debug line
 		lineStart = self.calcCenter()
@@ -48,37 +48,22 @@ class Player:
 
 	def update(self, enemies: List):
 		
-		
 		keyPressed = pygame.key.get_pressed()
 
-		# event handler
-		for event in pygame.event.get():
-
-			#quit the game
-			if event.type == QUIT:
-				pygame.quit()
-				quit()
-
-			#movement
-			if any(keyPressed):
+		#movement
+		if any(keyPressed):
 				
-				if keyPressed[pygame.K_w]: #move up
-					self.vel -= pygame.Vector2(0, Constants.PLAYER_SPD)
-				if keyPressed[pygame.K_s]: #move down
-					self.vel += pygame.Vector2(0, Constants.PLAYER_SPD)
-				if keyPressed[pygame.K_a]: #move left
-					self.vel -= pygame.Vector2(Constants.PLAYER_SPD, 0)
-				if keyPressed[pygame.K_d]: #move right
-					self.vel += pygame.Vector2(Constants.PLAYER_SPD, 0)
+			if keyPressed[pygame.K_w]: #move up
+				self.vel.y -= Constants.PLAYER_SPD
+			if keyPressed[pygame.K_s]: #move down
+				self.vel.y += Constants.PLAYER_SPD
+			if keyPressed[pygame.K_a]: #move left
+				self.vel.x -= Constants.PLAYER_SPD
+			if keyPressed[pygame.K_d]: #move right
+				self.vel.x += Constants.PLAYER_SPD
 				
-				self.vel = pygame.Vector2.normalize(self.vel)
-				self.pos += self.vel
-
-			#flip display buffer
-			pygame.display.flip()
-
-			#constrain to 60 fps
-			clock.tick(60)
+			self.vel = pygame.Vector2.normalize(self.vel)
+			self.pos += self.vel
 
 	def calcCenter(self):
 		return pygame.Vector2(self.pos.x + self.size / 2, self.pos.y + self.size / 2)
