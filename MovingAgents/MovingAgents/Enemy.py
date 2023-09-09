@@ -20,8 +20,28 @@ class Enemy:
 		#draw the rectangle
 		pygame.draw.rect(screen, (Constants.ENEMY_COLOR), pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
 
+		# draw debug line
+		lineStart = self.calcCenter()
+		scaledVel = pygame.Vector2(self.vel.x, self.vel.y)
+		
+		if self.vel == (0,0):
+			scaledVel = self.vel
+		else:
+			pygame.Vector2.scale_to_length(scaledVel, self.size)
+		
+		lineEnd = pygame.Vector2(self.calcCenter().x + scaledVel.x, self.calcCenter().y + scaledVel.y)
+		pygame.draw.line(screen, (0, 0, 255), lineStart, lineEnd, 3)
+
 	def update(self, player):
-		pass
+
+		# flee if player is close enough
+		distance = self.pos - player.pos
+		if distance.length() < Constants.FLEE_RANGE:
+			self.vel = pygame.Vector2.normalize(distance)
+			#Use speed and multiply it by velocity and time in order to determine where the enemy should move
+
+		# otherwise, wander
+		print("Wander...")
 
 	def calcCenter(self):
 		return pygame.Vector2(self.pos.x + self.size / 2, self.pos.y + self.size / 2)

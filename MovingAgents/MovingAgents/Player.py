@@ -2,6 +2,7 @@ from typing import List, Self
 import pygame
 from pygame.locals import *
 import Constants
+import random
 
 #setup
 clock = pygame.time.Clock();
@@ -36,31 +37,13 @@ class Player:
 		lineEnd = pygame.Vector2(self.calcCenter().x + scaledVel.x, self.calcCenter().y + scaledVel.y)
 		pygame.draw.line(screen, (0, 0, 255), lineStart, lineEnd, 3)
 
-		
-		#flip display buffer
-		pygame.display.flip()
-
-		#constrain to set fps
-		clock.tick(Constants.FRAME_RATE)
-
 	def update(self, enemies: List):
-		
-		keyPressed = pygame.key.get_pressed()
 
-		#movement
-		if any(keyPressed):
+		enemy = enemies[0]
+		self.vel = enemy.pos - self.pos
 				
-			if keyPressed[pygame.K_w]: #move up
-				self.vel.y -= Constants.PLAYER_SPD
-			if keyPressed[pygame.K_s]: #move down
-				self.vel.y += Constants.PLAYER_SPD
-			if keyPressed[pygame.K_a]: #move left
-				self.vel.x -= Constants.PLAYER_SPD
-			if keyPressed[pygame.K_d]: #move right
-				self.vel.x += Constants.PLAYER_SPD
-				
-			self.vel = pygame.Vector2.normalize(self.vel)
-			self.pos += self.vel
+		self.vel = pygame.Vector2.normalize(self.vel)
+		self.pos += self.vel
 
 	def calcCenter(self):
 		return pygame.Vector2(self.pos.x + self.size / 2, self.pos.y + self.size / 2)
