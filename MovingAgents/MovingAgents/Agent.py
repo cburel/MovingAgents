@@ -4,11 +4,12 @@ import Constants
 import random
 import math
 
-class Agent:
-	def __init__(self, pos, size, spd):
+class Agent():
+	def __init__(self, pos, size, spd, color):
 		self.pos = pos
 		self.size = size
 		self.spd = spd
+		self.color = color
 		self.vel = pygame.Vector2(0,0)
 		self.center = self.calcCenter()
 
@@ -18,7 +19,7 @@ class Agent:
 	def draw(self, screen):
 
 		#draw the rectangle
-		pygame.draw.rect(screen, (Constants.ENEMY_COLOR), pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
+		pygame.draw.rect(screen, self.color, pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
 
 		# draw debug line
 		lineStart = self.calcCenter()

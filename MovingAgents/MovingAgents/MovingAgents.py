@@ -11,11 +11,11 @@ pygame.init()
 #setup
 clock = pygame.time.Clock();
 screen = pygame.display.set_mode((Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT))
-player = Player(pygame.Vector2(Constants.PLAYER_XPOS, Constants.PLAYER_YPOS), (Constants.PLAYER_SIZE), Constants.PLAYER_SPD)
+player = Player(pygame.Vector2(Constants.PLAYER_XPOS, Constants.PLAYER_YPOS), (Constants.PLAYER_SIZE), Constants.PLAYER_SPD, Constants.PLAYER_COLOR)
 
 enemies = []
 for i in range (1, Constants.MAX_ENEMIES + 1):
-	enemies.append(Enemy(pygame.Vector2(random.randrange(0, Constants.DISPLAY_WIDTH), random.randrange(0, Constants.DISPLAY_WIDTH)), Constants.ENEMY_SIZE, Constants.ENEMY_SPD))
+	enemies.append(Enemy(pygame.Vector2(random.randrange(0, Constants.DISPLAY_WIDTH), random.randrange(0, Constants.DISPLAY_WIDTH)), Constants.ENEMY_SIZE, Constants.ENEMY_SPD, Constants.ENEMY_COLOR))
 
 #main gameplay loop
 while True:

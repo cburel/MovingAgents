@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Agent.py" />
     <Compile Include="Constants.py" />
     <Compile Include="Enemy.py" />
     <Compile Include="MovingAgents.py" />
