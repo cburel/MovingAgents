@@ -30,16 +30,19 @@ while True:
 				
 	#make screen cornflower blue
 	screen.fill(Constants.BACKGROUND_COLOR)
+	
+	#update the agents
+	player.update(enemies)
+	for enemy in enemies:
+		enemy.update(player)
 
 	#draw the agents
 	player.draw(screen)
 	for enemy in enemies:
 		enemy.draw(screen)
 
-	#update the agents
-	player.update(enemies)
-	for enemy in enemies:
-		enemy.update(player)
+	# check for player tagging enemy
+	player.detectCollision(enemy)
 
 	#flip display buffer
 	pygame.display.flip()

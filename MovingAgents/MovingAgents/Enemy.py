@@ -12,8 +12,7 @@ class Enemy(Agent):
 		# flee if player is close enough
 		distance = self.pos - player.pos
 		if distance.length() < Constants.FLEE_RANGE:
-			self.vel = pygame.Vector2.normalize(distance) * Constants.ENEMY_SPD
-			self.pos += self.vel
+			self.vel = pygame.Vector2.normalize(distance)
 
 		# otherwise, wander
 		else:
@@ -22,11 +21,16 @@ class Enemy(Agent):
 
 			pickTurn = random.randint(0, 100)
 			if pickTurn < 50:
-				pass
+				theta += 0
 			else:
 				theta += 180
 
 			self.vel.x += math.cos(theta) - math.sin(theta)
 			self.vel.y += math.sin(theta) - math.cos(theta)
 
-			self.pos += pygame.Vector2.normalize(self.vel)
+		super().update()
+
+	def tagged(self):
+		self.color = (0,0,0)
+		self.size = (0,0)
+		print("enemy collision!")
