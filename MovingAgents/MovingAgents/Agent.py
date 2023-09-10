@@ -16,7 +16,7 @@ class Agent():
 	def __str__(self):
 		return ("Size: " +  str(self.size) + ", " + "Pos: " + str(self.pos) + ", " + "Vel: " + str(self.vel) + ", " + "Center: " + str(self.center))
 
-	def draw(self, screen):
+	def draw(self, screen, closestEnemy):
 
 		#draw the rectangle
 		pygame.draw.rect(screen, self.color, pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
@@ -38,17 +38,18 @@ class Agent():
 		pygame.draw.line(screen, (0, 0, 255), lineStart, lineEnd, 3)
 
 		#draw target line
-		#pygame.draw.line(screen, (255, 0, 0), (self.calcCenter().x, self.calcCenter().y), (other.calcCenter().x, other.calcCenter.y), 3)
+		if closestEnemy != None:
+			pygame.draw.line(screen, (255, 0, 0), (self.calcCenter().x, self.calcCenter().y), (closestEnemy.calcCenter().x, closestEnemy.calcCenter().y), 3)
 	
 	# check for collision with another agent
-	def detectCollision(self, other):
+	def detectCollision(self, other, enemies):
 
-		# if collision is detected, execute collision 
-		if self.rect.colliderect(other.rect):
-			print("collision!")
-			self.tagged()
+		if other != None:
+			# if collision is detected, execute collision 
+			if self.rect.colliderect(other.rect):
+				enemies.remove(other)
 
-	def update(self):
+	def update(self, other):
 
 		#move the agent and its collision rect
 		self.pos += pygame.Vector2.normalize(self.vel) * self.spd

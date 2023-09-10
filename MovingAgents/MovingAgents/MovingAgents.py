@@ -32,14 +32,15 @@ while True:
 	screen.fill(Constants.BACKGROUND_COLOR)
 	
 	#update the agents
-	player.update(enemies)
+	targetEnemy = player.update(enemies)
 	for enemy in enemies:
-		enemy.update(player)
+		fleeingFrom = enemy.update(player)
+		enemy.draw(screen, fleeingFrom)
 
-	#draw the agents
-	player.draw(screen)
-	for enemy in enemies:
-		enemy.draw(screen)
+	#draw the player agent
+	player.draw(screen, targetEnemy)
+
+	player.detectCollision(targetEnemy, enemies)
 		
 	#flip display buffer
 	pygame.display.flip()

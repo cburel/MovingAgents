@@ -13,14 +13,13 @@ class Player(Agent):
 
 		# gets nearest enemy and moves player towards it
 		# shoutout to Rabbid76 on SO for the basics on this next line
-		enemy = min([e for e in enemies], key=lambda e: self.pos.distance_to(pygame.math.Vector2(e.pos.x, e.pos.y)))
+		enemy = None
 
-		self.vel = enemy.pos - self.pos
+		if len(enemies) != 0:
+			enemy = min([e for e in enemies], key=lambda e: self.pos.distance_to(pygame.math.Vector2(e.pos.x, e.pos.y)))
 
-		if self.rect.colliderect(enemy.rect):
-			self.tagged()
-		
-		super().update()
+			self.vel = enemy.pos - self.pos
+				
+			super().update(enemy)
 
-	def tagged(self):
-		print("player collision!")
+		return enemy

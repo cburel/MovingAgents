@@ -13,6 +13,8 @@ class Enemy(Agent):
 		distance = self.pos - player.pos
 		if distance.length() < Constants.FLEE_RANGE:
 			self.vel = pygame.Vector2.normalize(distance)
+		
+			fleeingFrom = player
 
 		# otherwise, wander
 		else:
@@ -28,9 +30,7 @@ class Enemy(Agent):
 			self.vel.x += math.cos(theta) - math.sin(theta)
 			self.vel.y += math.sin(theta) - math.cos(theta)
 
-		super().update()
+			fleeingFrom = None
 
-	def tagged(self):
-		self.color = (0,0,0)
-		self.size = (0,0)
-		print("enemy collision!")
+		super().update(player)
+		return fleeingFrom
