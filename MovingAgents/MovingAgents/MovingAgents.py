@@ -40,10 +40,7 @@ while True:
 	player.draw(screen)
 	for enemy in enemies:
 		enemy.draw(screen)
-
-	# check for player tagging enemy
-	player.detectCollision(enemy)
-
+		
 	#flip display buffer
 	pygame.display.flip()
 

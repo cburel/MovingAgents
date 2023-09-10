@@ -1,8 +1,6 @@
 import pygame
 from pygame.locals import *
 import Constants
-import random
-import math
 
 class Agent():
 	def __init__(self, pos, size, spd, color):
@@ -24,8 +22,8 @@ class Agent():
 		pygame.draw.rect(screen, self.color, pygame.Rect(self.pos.x, self.pos.y, self.size, self.size))
 		self.rect = pygame.Rect(self.pos.x, self.pos.y, self.size, self.size)
 		
-		#debug
-		#pygame.draw.rect(screen, (255,255,255), self.rect)
+		#draw debug collision rect border
+		pygame.draw.rect(screen, (0,0,0), self.rect, 1)
 
 		# draw debug line
 		lineStart = self.calcCenter()
@@ -47,6 +45,7 @@ class Agent():
 
 		# if collision is detected, execute collision 
 		if self.rect.colliderect(other.rect):
+			print("collision!")
 			self.tagged()
 
 	def update(self):

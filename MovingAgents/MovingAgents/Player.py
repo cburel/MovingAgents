@@ -1,8 +1,6 @@
-from typing import List, Self
+from typing import List
 import pygame
 from pygame.locals import *
-import Constants
-import random
 from Agent import Agent
 
 #setup
@@ -18,9 +16,11 @@ class Player(Agent):
 		enemy = min([e for e in enemies], key=lambda e: self.pos.distance_to(pygame.math.Vector2(e.pos.x, e.pos.y)))
 
 		self.vel = enemy.pos - self.pos
+
+		if self.rect.colliderect(enemy.rect):
+			self.tagged()
 		
 		super().update()
 
-	def tagged(self, enemies: List, enemy):
-		enemies.remove(enemy)
+	def tagged(self):
 		print("player collision!")
