@@ -3,12 +3,13 @@ import pygame
 from pygame.locals import *
 import Constants
 import random
+import Agent
 
 #setup
 clock = pygame.time.Clock();
 
 
-class Player:
+class Player(Agent):
 
 	def __init__(self, pos, size, spd):
 		self.pos = pos

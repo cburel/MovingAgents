@@ -1,17 +1,15 @@
 import pygame
 from pygame.locals import *
+import Constants
 import random
 import math
-import Constants
-import Agent
 
-class Enemy(Agent):
+class Agent:
 	def __init__(self, pos, size, spd):
 		self.pos = pos
 		self.size = size
 		self.spd = spd
 		self.vel = pygame.Vector2(0,0)
-		self.color = Constants.ENEMY_COLOR
 		self.center = self.calcCenter()
 
 	def __str__(self):
@@ -33,30 +31,6 @@ class Enemy(Agent):
 		
 		lineEnd = pygame.Vector2(self.calcCenter().x + scaledVel.x, self.calcCenter().y + scaledVel.y)
 		pygame.draw.line(screen, (0, 0, 255), lineStart, lineEnd, 3)
-
-	def update(self, player):
-		
-		# flee if player is close enough
-		distance = self.pos - player.pos
-		if distance.length() < Constants.FLEE_RANGE:
-			self.vel = pygame.Vector2.normalize(distance) * Constants.ENEMY_SPD
-			self.pos += self.vel
-
-		# otherwise, wander
-		else:
-			rotationAngle = random.randrange(-1, 1)
-			theta = math.acos(rotationAngle)
-
-			pickTurn = random.randint(0, 100)
-			if pickTurn < 50:
-				pass
-			else:
-				theta += 180
-
-			self.vel.x += math.cos(theta) - math.sin(theta)
-			self.vel.y += math.sin(theta) - math.cos(theta)
-
-			self.pos += pygame.Vector2.normalize(self.vel)
 
 	def calcCenter(self):
 		return pygame.Vector2(self.pos.x + self.size / 2, self.pos.y + self.size / 2)
